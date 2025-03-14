@@ -3,7 +3,9 @@ import { ethers } from "ethers";
 import { parseEther, formatEther } from "ethers";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 
-const contractAddress = "0xF09e280767c768Fb361C3F5075142d02645e2972";
+const contractAddress = "0x13B020CEf419C48DdF7f6ed26Fe8E431DbE89715";
+
+//0xF09e280767c768Fb361C3F5075142d02645e2972
 const contractABI = [
     "function createCampaign(string memory _title, string memory _description, uint256 _goal, uint256 _duration) external",
     "function contribute(uint256 _campaignId) external payable",
@@ -13,7 +15,8 @@ const contractABI = [
     "function votes(uint256) view returns (uint256)",
     "function campaignCount() view returns (uint256)",
     "function daoMembers(address) view returns (bool)",
-    "event CampaignCreated(uint256 campaignId, string title, uint256 goal, uint256 deadline)"
+    "event CampaignCreated(uint256 campaignId, string title, uint256 goal, uint256 deadline)",
+    "function getYesVotes(uint256 _campaignId) view returns (uint256)",
 ];
 
 function App() {
@@ -68,6 +71,8 @@ function App() {
             const tx = await contract.voteForWithdrawal(campaignId, support);
             await tx.wait();
             alert("Vote submitted successfully!");
+            // Fetch updated campaigns to update UI
+            fetchCampaigns();
         } catch (error) {
             console.error("Voting failed", error);
         }
@@ -85,26 +90,36 @@ function App() {
     };
 
     const fetchCampaigns = async () => {
-        try {
-            const count = await contract.campaignCount();
-            let fetchedCampaigns = [];
+      try {
+          const count = await contract.campaignCount();
+          let fetchedCampaigns = [];
+  
+          for (let i = 0; i < count; i++) {
+              const campaign = await contract.campaigns(i);
+              const yesVotes  = await contract.getYesVotes(i);  // Total number of votes (YES + NO)
 
-            for (let i = 0; i < count; i++) {
-                const campaign = await contract.campaigns(i);
-                fetchedCampaigns.push({
-                    id: i,
-                    title: campaign[1],
-                    goal: formatEther(campaign[3]),
-                    raised: formatEther(campaign[5]),
-                    creator: campaign[0],
-                    duration: campaign[4].toString()
-                });
-            }
-            setCampaigns(fetchedCampaigns);
-        } catch (error) {
-            console.error("Failed to fetch campaigns", error);
-        }
-    };
+              
+                // Convert the deadline from Unix timestamp to a human-readable date
+              const duration = parseInt(campaign[4].toString());
+              const endDate = new Date(duration * 1000).toLocaleString(); // Convert from Unix timestamp to Date
+
+              fetchedCampaigns.push({
+                  id: i,
+                  title: campaign[1],
+                  goal: formatEther(campaign[3]),
+                  raised: formatEther(campaign[5]),
+                  creator: campaign[0],
+                  duration: duration,
+                  endDate: endDate,  // Add the converted end date
+                  yesVotes: yesVotes.toString(),  // Store yes votes
+              });
+          }
+          setCampaigns(fetchedCampaigns);
+      } catch (error) {
+          console.error("Failed to fetch campaigns", error);
+      }
+  };
+  
 
     useEffect(() => {
         if (contract) fetchCampaigns();
@@ -165,8 +180,9 @@ function App() {
                 <p>
                   <strong>Raised:</strong> {c.raised} ETH
                 </p>
-                <p><strong>Duration (seconds):</strong> {c.duration}
+                <p><strong>End Date:</strong> {c.endDate}  {/* Show the human-readable end date */}
                 </p>
+                <p><strong>Yes Votes:</strong> {c.yesVotes}</p>
                 <p>
                   <strong>Creator:</strong> {c.creator}
                 </p>
