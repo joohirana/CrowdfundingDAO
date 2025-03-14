@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/CrowdfundingDAO/static/css/main.e6c13ad2.css",
+    "main.js": "/CrowdfundingDAO/static/js/main.29b8e23e.js",
+    "static/js/453.029d9eef.chunk.js": "/CrowdfundingDAO/static/js/453.029d9eef.chunk.js",
+    "index.html": "/CrowdfundingDAO/index.html",
+    "main.e6c13ad2.css.map": "/CrowdfundingDAO/static/css/main.e6c13ad2.css.map",
+    "main.29b8e23e.js.map": "/CrowdfundingDAO/static/js/main.29b8e23e.js.map",
+    "453.029d9eef.chunk.js.map": "/CrowdfundingDAO/static/js/453.029d9eef.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.29b8e23e.js"
+  ]
+}
