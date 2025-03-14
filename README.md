@@ -1,6 +1,7 @@
 # Website
-
 https://joohirana.github.io/CrowdfundingDAO
+
+# Author: Joohi Rana and Athayya 
 
 # How DAO Crowdfunding Works
 
