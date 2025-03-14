@@ -151,7 +151,9 @@ function App() {
                             document.getElementById("duration").value
                         )
                     }
-                    className="bg-green-500 text-white px-4 py-2 rounded">
+                    class="btn btn-success"
+                    // className="bg-green-500 text-white px-4 py-2 rounded"
+                    >
                     Create Campaign
                 </button>
             </div>
@@ -192,6 +194,7 @@ function App() {
                   type="text"
                   placeholder="Amount in ETH"
                   id={`amount-${c.id}`}
+                  class="p-2"
                 />
                 <button
                   onClick={() =>
@@ -200,16 +203,17 @@ function App() {
                       document.getElementById(`amount-${c.id}`).value
                     )
                   }
+                class="btn btn-primary m-2"
                 >
                   Contribute
                 </button>
 
                 {/* DAO Voting Section */}
-                <h4>Vote for Withdrawal</h4>
-                <button onClick={() => voteWithdrawal(c.id, true)}>
+                <h4 >Vote for Withdrawal</h4>
+                <button className="btn btn-success" onClick={() => voteWithdrawal(c.id, true)}>
                   Vote YES
                 </button>
-                <button onClick={() => voteWithdrawal(c.id, false)}>
+                <button className="btn btn-warning m-2" onClick={() => voteWithdrawal(c.id, false)}>
                   Vote NO
                 </button>
 
@@ -217,7 +221,7 @@ function App() {
                 {c.creator.toLowerCase() === account.toLowerCase() && (
                   <>
                     <h4>Withdraw Funds</h4>
-                    <button onClick={() => withdrawFunds(c.id)}>
+                    <button className="btn btn-primary" onClick={() => withdrawFunds(c.id)}>
                       Withdraw Funds
                     </button>
                   </>
