@@ -16,3 +16,7 @@ After a campaign ends, DAO members can vote on whether the campaign creator shou
 
 ## Fund Distribution:
 The campaign creator can withdraw funds once the voting requirement is met, and the funds will be transferred to their address. The withdrawal is marked as completed, and the amount is reset to 0.
+
+![Flowchart.png](https://github.com/joohirana/CrowdfundingDAO/blob/main/Flowchart.png)
+
+## This is how website looks:
