@@ -1,4 +1,8 @@
 /**
+ *Submitted for verification at Etherscan.io on 2025-03-13
+*/
+
+/**
  *Submitted for verification at Etherscan.io on 2025-03-07
 */
 
@@ -102,6 +106,17 @@ contract DAOManagedCrowdfunding {
         }
         return yesVotes;
     }
+
+    function getYesVotes(uint256 _campaignId) external view returns (uint256) {
+    uint256 yesVotes = 0;
+    for (uint256 i = 0; i < votes[_campaignId].length; i++) {
+        if (votes[_campaignId][i].support) {
+            yesVotes++;
+        }
+    }
+    return yesVotes;
+}
+
 
     function getDAOMemberCount() private view returns (uint256 count) {
         for (uint256 i = 0; i < campaignCount; i++) {
