@@ -21,4 +21,4 @@ The campaign creator can withdraw funds once the voting requirement is met, and 
 ![Flowchart.png](https://github.com/joohirana/CrowdfundingDAO/blob/main/Flowchart.png)
 
 ## This is how website looks:
-![Dapp.png](https://github.com/joohirana/CrowdfundingDAO/blob/main/Dapp.png)
+
